@@ -4,37 +4,53 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public Transform playerTransform; // Assign the player GameObject here
     public float mouseSensitivity = 100f;
-    public Transform playerBody; // Reference to the player's body for rotation
-    private float xRotation = 0f;
+    public float verticalClampAngle = 80f;
+    public float cameraDistance = 5f;
+    public float cameraHeight = 2f;
 
-    void Start()
-    {
-        // Lock the cursor to the center of the screen and make it invisible
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+    private float verticalRotation = 0f;
 
-    void Update()
+    private void Start()
     {
+        // Lock the cursor for better camera control
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
 
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    // Optionally, pause the game or toggle cursor lock here if desired.
-        //    Cursor.lockState = CursorLockMode.Locked;
-        //    Cursor.visible = true;
-        //}
+    private void LateUpdate()
+    {
+        HandleCameraRotation();
+        FollowPlayer();
+    }
+
+    private void HandleCameraRotation()
+    {
         // Get mouse input
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        // Rotate the player body based on horizontal mouse movement
-        playerBody.Rotate(Vector3.up * mouseX);
+        // Rotate the player horizontally
+        playerTransform.Rotate(Vector3.up * mouseX);
 
-        // Apply vertical rotation to the camera, with clamping to prevent flipping
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Limit up/down rotation to prevent camera flipping
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        // Handle vertical rotation, clamped to avoid flipping
+        verticalRotation -= mouseY;
+        verticalRotation = Mathf.Clamp(verticalRotation, -verticalClampAngle, verticalClampAngle);
+
+        // Apply vertical rotation to the camera
+        transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+    }
+
+    private void FollowPlayer()
+    {
+        // Calculate the desired position behind the player
+        Vector3 cameraOffset = -playerTransform.forward * cameraDistance + Vector3.up * cameraHeight;
+
+        // Move the camera to the desired position
+        transform.position = playerTransform.position + cameraOffset;
+
+        // Ensure the camera faces the same direction as the player
+        transform.rotation = Quaternion.Euler(verticalRotation, playerTransform.eulerAngles.y, 0f);
     }
 }
