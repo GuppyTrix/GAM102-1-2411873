@@ -9,6 +9,8 @@ public class UiManager : MonoBehaviour
 {
     private bool isUIActive = false;
 
+    public GameObject globe;
+
     public GameObject uiPanel;
     public Transform inputFieldsParent;
     private Dictionary<string, TMP_InputField> inputFields = new Dictionary<string, TMP_InputField>();
@@ -35,6 +37,16 @@ public class UiManager : MonoBehaviour
         {
             ToggleUI();
         }
+    }
+
+    public void OnPressDeleteMarkers(string fieldName)
+    {
+        foreach (Transform child in globe.transform)
+        {
+            // Destroy the child GameObject
+            Destroy(child.gameObject);
+        }
+    
     }
 
     private string GetInputValue(string fieldName)
