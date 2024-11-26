@@ -151,6 +151,53 @@ Transform:
   - {fileID: 1450642743}
   m_Father: {fileID: 798321532}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &203439712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 203439714}
+  - component: {fileID: 203439713}
+  m_Layer: 0
+  m_Name: EarthquakeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &203439713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203439712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ffbc1f0f7302eb43986dfca28741adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  earthquakeMarkerPrefab: {fileID: 8119317584943620912, guid: 2f6b935ca4204b743b9b94f65784e9c7,
+    type: 3}
+  globe: {fileID: 290466190}
+--- !u!4 &203439714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203439712}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.15974988, y: 1.7746553, z: -4.8779125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &264355111 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e3192d98c1eccc14887b53d8ed36b599,
@@ -262,6 +309,7 @@ GameObject:
   - component: {fileID: 290466191}
   - component: {fileID: 290466193}
   - component: {fileID: 290466192}
+  - component: {fileID: 290466194}
   m_Layer: 0
   m_Name: PlanetSphere
   m_TagString: Untagged
@@ -336,6 +384,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 290466190}
   m_Mesh: {fileID: 4300000, guid: 541dc450e82531b4b950cd204a82c77b, type: 3}
+--- !u!114 &290466194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290466190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7f9d65d01f216d4e91672b374fd8fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &396561973
 GameObject:
   m_ObjectHideFlags: 0
@@ -2023,3 +2083,4 @@ SceneRoots:
   - {fileID: 1371002967}
   - {fileID: 1580694264}
   - {fileID: 798321532}
+  - {fileID: 203439714}
