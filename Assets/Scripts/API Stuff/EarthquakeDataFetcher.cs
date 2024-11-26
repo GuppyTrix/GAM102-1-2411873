@@ -3,11 +3,21 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 using System;
+using TMPro;
+using UnityEngine.UIElements;
 
 public class EarthquakeDataFetcher : MonoBehaviour
 {
     public static EarthquakeDataFetcher Instance;
     private EarthquakeManager earthquakeManager;
+
+    public TMP_InputField alertlevel;
+    public GameObject uiPanel;
+    private bool isUIActive = false;
+    //public TMP_InputField startTimeInput;
+    //public TMP_InputField endTimeInput;
+    //public TMP_InputField mMagnitudeInput;
+    //public TMP_Text resultText;
 
     private void Awake()
     {
@@ -20,26 +30,66 @@ public class EarthquakeDataFetcher : MonoBehaviour
         }
 
         earthquakeManager = GetComponent<EarthquakeManager>();
+    }
 
+    private void Start()
+    {
+        // Make sure the UI panel is hidden at the start
+        uiPanel.SetActive(false);
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
+    }
 
-        //if (EarthquakeManager.Instance != null)
-        //{
-        //    Debug.Log("EarthquakeManager instance is set.");
-        //}
-        //else
-        //{
-        //    Debug.LogError("EarthquakeManager instance is NOT set.");
-        //}
+    private void Update()
+    {
+        // Toggle UI with Escape key
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleUI();
+        }
+    }
 
-        //earthquakeManager = EarthquakeManager.Instance;
+    private void ToggleUI()
+    {
+        isUIActive = !isUIActive;
+        uiPanel.SetActive(isUIActive);
+
+        if (isUIActive)
+        {
+            // Unlock cursor and make it visible
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+            UnityEngine.Cursor.visible = true;
+        }
+        else
+        {
+            // Lock cursor back to the game screen
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+            UnityEngine.Cursor.visible = false;
+        }
+    }
+
+    public void OnFetchDataButtonClick()
+    {
+        Debug.Log("THIS CODE IS BEING RUN");
+
+        FetchEarthquakeData();
+        Debug.Log("THIS CODE IS BEING RUN");
+
     }
 
     public IEnumerator FetchEarthquakeData()
     {
+        Debug.Log("THIS CODE IS BEING RUN");
+        string alertlvl = alertlevel.text;
 
         //TODO//
         //add in custon api requests from different timeframes instead of a set api call
-        string apiUrl = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2024-11-25T00:00:00&endtime=2024-11-25T23:59:59&orderby=time";
+        string apiUrl = $"https://earthquake.usgs.gov/fdsnws/event/1/query?" +
+            $"format=geojson&" +
+            $"starttime=2024-11-25T00:00:00&" +
+            $"endtime=2024-11-25T23:59:59&" +
+            $"orderby=time&" +
+            $"alertlevel={alertlvl}";
 
         using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
         {
@@ -70,12 +120,12 @@ public class EarthquakeDataFetcher : MonoBehaviour
                     // Convert Unix time to DateTime (in UTC i think)
                     System.DateTime dateTime = UnixTimeStampToDateTime(time);
 
-                    Debug.Log($"Earthquake Details: \n" +
-                              $"  Place: {place}\n" +
-                              $"  Latitude: {latitude}, Longitude: {longitude}, Depth: {depth} km\n" +
-                              $"  Magnitude: {magnitude}\n" +
-                              $"  Alert Level: {alert}\n" +
-                              $"  Time: {dateTime}");
+                    //Debug.Log($"Earthquake Details: \n" +
+                    //          $"  Place: {place}\n" +
+                    //          $"  Latitude: {latitude}, Longitude: {longitude}, Depth: {depth} km\n" +
+                    //          $"  Magnitude: {magnitude}\n" +
+                    //          $"  Alert Level: {alert}\n" +
+                    //          $"  Time: {dateTime}");
                     earthquakeManager.PlaceEarthquakeMarker(latitude, longitude, alert);
 
                     //if (earthquakeManager != null)
