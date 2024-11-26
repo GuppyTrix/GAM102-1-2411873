@@ -1,9 +1,9 @@
 ### Blank Unity Project ### 
 
 ## License
-[License.md](License.md)
+[license.md](license.md)
 
-The MIT License is a simple, permissive, and widely recognized choice for software projects. It allows use in both open-source and proprietary applications, fostering collaboration and encouraging contributions. Its clear terms provide liability protection by disclaiming warranties, while ensuring proper attribution to the original creator. As an industry-standard license, it maximizes adoption and impact, making it an excellent option for developers seeking to share their work openly.
+The MIT License is a simple, permissive, and widely recognized choice for software projects. It allows use in both open-source and proprietary applications, fostering collaboration and encouraging contributions. Its clear terms provide liability protection by disclaiming warranties, while ensuring proper attribution to the original creator. As an industry-standard license, it maximizes adoption and impact, making it an excellent option for developers seeking to share their work openly which is why i chose it for this project
 
 
 
