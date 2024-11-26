@@ -5,19 +5,51 @@ using System.Collections.Generic;
 using System;
 using TMPro;
 using UnityEngine.UIElements;
+using System.Drawing;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class EarthquakeDataFetcher : MonoBehaviour
 {
     public static EarthquakeDataFetcher Instance;
     private EarthquakeManager earthquakeManager;
+    private EarthquakeData data;
 
-    public TMP_InputField alertlevel;
-    public GameObject uiPanel;
-    private bool isUIActive = false;
-    //public TMP_InputField startTimeInput;
-    //public TMP_InputField endTimeInput;
-    //public TMP_InputField mMagnitudeInput;
-    //public TMP_Text resultText;
+
+    //API call parameters
+    string apiUrl = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&";
+
+
+    //Time
+    //All times use ISO8601 Date/Time format. Unless a timezone is specified, UTC is assumed
+    private string? endtime = "2024-11-25T23:59:59"; // default:present time
+    private string? starttime = "2024 - 11 - 25T00:00:00"; // NOW-30 days
+    private string? updatedafter; //Limit to events updated after the specified time
+
+    //Other
+    private int? limit = 100; //1, 20k
+    private int? maxdepth; //-100, 1k
+    private int? mindepth; //-100, 1k
+    private int? maxmagnitude;
+    private int? minmagnitude;
+    private string? orderby = "time";
+
+
+    //Location
+    //Requests that use both rectangle and circle will return the intersection, which may be empty, use with caution.
+
+    //Rectangle
+    //Requests may use any combination of these parameters
+        private int? minlatitude; //-90, 90
+        private int? maxlatitude; //-90, 90
+        private int? minlongitude; //-360, 360
+        private int? maxlongitude; //-360, 360
+
+        //Circle
+        //Requests must include all of latitude, longitude, and maxradius to perform a circle search
+        private int? latitude;  //-90, 90
+        private int? longitude; //-180, 180
+        private int? maxradius; //0, 180  //in degrees
+        private int? maxradiuskm; //0, 20001.6 // in km
 
     private void Awake()
     {
@@ -31,67 +63,45 @@ public class EarthquakeDataFetcher : MonoBehaviour
 
         earthquakeManager = GetComponent<EarthquakeManager>();
     }
+    
 
-    private void Start()
+
+    public IEnumerator FetchEarthquakeData(string color)
     {
-        // Make sure the UI panel is hidden at the start
-        uiPanel.SetActive(false);
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        UnityEngine.Cursor.visible = false;
-    }
-
-    private void Update()
-    {
-        // Toggle UI with Escape key
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            ToggleUI();
-        }
-    }
-
-    private void ToggleUI()
-    {
-        isUIActive = !isUIActive;
-        uiPanel.SetActive(isUIActive);
-
-        if (isUIActive)
-        {
-            // Unlock cursor and make it visible
-            UnityEngine.Cursor.lockState = CursorLockMode.None;
-            UnityEngine.Cursor.visible = true;
-        }
-        else
-        {
-            // Lock cursor back to the game screen
-            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-            UnityEngine.Cursor.visible = false;
-        }
-    }
-
-    public void OnFetchDataButtonClick()
-    {
-        Debug.Log("THIS CODE IS BEING RUN");
-
-        FetchEarthquakeData();
-        Debug.Log("THIS CODE IS BEING RUN");
-
-    }
-
-    public IEnumerator FetchEarthquakeData()
-    {
-        Debug.Log("THIS CODE IS BEING RUN");
-        string alertlvl = alertlevel.text;
 
         //TODO//
         //add in custon api requests from different timeframes instead of a set api call
-        string apiUrl = $"https://earthquake.usgs.gov/fdsnws/event/1/query?" +
-            $"format=geojson&" +
-            $"starttime=2024-11-25T00:00:00&" +
-            $"endtime=2024-11-25T23:59:59&" +
-            $"orderby=time&" +
-            $"alertlevel={alertlvl}";
 
-        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
+        var queryParams = new List<string>();
+
+        if (!string.IsNullOrEmpty(endtime)) queryParams.Add($"endtime={endtime}");
+        if (!string.IsNullOrEmpty(starttime)) queryParams.Add($"starttime={starttime}");
+        if (!string.IsNullOrEmpty(updatedafter)) queryParams.Add($"updatedafter={updatedafter}");
+        if (!string.IsNullOrEmpty(orderby)) queryParams.Add($"orderby={orderby}");
+        if (limit.HasValue) queryParams.Add($"limit={limit.Value}");
+        if (maxdepth.HasValue) queryParams.Add($"maxdepth={maxdepth.Value}");
+        if (mindepth.HasValue) queryParams.Add($"mindepth={mindepth.Value}");
+        if (maxmagnitude.HasValue) queryParams.Add($"maxmagnitude={maxmagnitude.Value}");
+        if (minmagnitude.HasValue) queryParams.Add($"minmagnitude={minmagnitude.Value}");
+        if (minlatitude.HasValue) queryParams.Add($"minlatitude={minlatitude.Value}");
+        if (maxlatitude.HasValue) queryParams.Add($"maxlatitude={maxlatitude.Value}");
+        if (minlongitude.HasValue) queryParams.Add($"minlongitude={minlongitude.Value}");
+        if (maxlongitude.HasValue) queryParams.Add($"maxlongitude={maxlongitude.Value}");
+        if (latitude.HasValue) queryParams.Add($"latitude={latitude.Value}");
+        if (longitude.HasValue) queryParams.Add($"longitude={longitude.Value}");
+        if (maxradius.HasValue) queryParams.Add($"maxradius={maxradius.Value}");
+        if (maxradiuskm.HasValue) queryParams.Add($"maxradiuskm={maxradiuskm.Value}");
+
+        string fullUrl = apiUrl + string.Join("&", queryParams);
+        Debug.Log($"Fetching data from: {fullUrl}");
+
+
+        //string apiUrl = $"https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&" +
+        //    $"starttime=2024-11-25T00:00:00&" +
+        //    $"endtime=2024-11-25T23:59:59&" +
+        //    $"orderby={orderby}";
+
+        using (UnityWebRequest request = UnityWebRequest.Get(fullUrl))
         {
             yield return request.SendWebRequest();
 
@@ -101,11 +111,11 @@ public class EarthquakeDataFetcher : MonoBehaviour
             }
             else
             {
-                string jsonResponse = request.downloadHandler.text;
+                string jsonResponse = request.downloadHandler.text; 
                 Debug.Log("Earthquake Data Fetched: " + jsonResponse);
 
                 // Parse JSON using JsonUtility
-                EarthquakeData data = JsonUtility.FromJson<EarthquakeData>(jsonResponse);
+                data = JsonUtility.FromJson<EarthquakeData>(jsonResponse);
 
                 foreach (Feature feature in data.features)
                 {
@@ -115,27 +125,17 @@ public class EarthquakeDataFetcher : MonoBehaviour
                     string place = feature.properties.place;
                     long time = feature.properties.time; // Unix timestamp in milliseconds
                     float depth = feature.geometry.coordinates[2];
-                    string alert = feature.properties.alert;
 
                     // Convert Unix time to DateTime (in UTC i think)
                     System.DateTime dateTime = UnixTimeStampToDateTime(time);
 
-                    //Debug.Log($"Earthquake Details: \n" +
-                    //          $"  Place: {place}\n" +
-                    //          $"  Latitude: {latitude}, Longitude: {longitude}, Depth: {depth} km\n" +
-                    //          $"  Magnitude: {magnitude}\n" +
-                    //          $"  Alert Level: {alert}\n" +
-                    //          $"  Time: {dateTime}");
-                    earthquakeManager.PlaceEarthquakeMarker(latitude, longitude, alert);
+                    Debug.Log($"Earthquake Details: \n" +
+                              $"  Place: {place}\n" +
+                              $"  Latitude: {latitude}, Longitude: {longitude}, Depth: {depth} km\n" +
+                              $"  Magnitude: {magnitude}\n" +
+                              $"  Time: {dateTime}");
 
-                    //if (earthquakeManager != null)
-                    //{
-                    //    earthquakeManager.PlaceEarthquakeMarker(latitude, longitude);
-                    //}
-                    //else
-                    //{
-                    //    Debug.LogError("EarthquakeManager instance is null.");
-                    //}
+                    earthquakeManager.PlaceEarthquakeMarker(latitude, longitude, color);
                 }
             }
         }
@@ -152,6 +152,43 @@ public class EarthquakeDataFetcher : MonoBehaviour
         DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
         dateTime = dateTime.AddMilliseconds(unixTimeStamp).ToLocalTime();
         return dateTime;
+    }
+
+    public void SetParameters(
+        string endtime,
+        string starttime,
+        string updatedafter,
+        int? limit = null,
+        int? maxdepth = null,
+        int? mindepth = null,
+        int? maxmagnitude = null,
+        int? minmagnitude = null,
+        int? minlatitude = null,
+        int? maxlatitude = null,
+        int? minlongitude = null,
+        int? maxlongitude = null,
+        int? latitude = null,
+        int? longitude = null,
+        int? maxradius = null,
+        int? maxradiuskm = null)
+    {
+        this.endtime = endtime;
+        this.starttime = starttime;
+        this.updatedafter = updatedafter;
+
+        this.limit = limit ?? this.limit;
+        this.maxdepth = maxdepth ?? this.maxdepth;
+        this.mindepth = mindepth ?? this.mindepth;
+        this.maxmagnitude = maxmagnitude ?? this.maxmagnitude;
+        this.minmagnitude = minmagnitude ?? this.minmagnitude;
+        this.minlatitude = minlatitude ?? this.minlatitude;
+        this.maxlatitude = maxlatitude ?? this.maxlatitude;
+        this.minlongitude = minlongitude ?? this.minlongitude;
+        this.maxlongitude = maxlongitude ?? this.maxlongitude;
+        this.latitude = latitude ?? this.latitude;
+        this.longitude = longitude ?? this.longitude;
+        this.maxradius = maxradius ?? this.maxradius;
+        this.maxradiuskm = maxradiuskm ?? this.maxradiuskm;
     }
 }
 
@@ -192,7 +229,6 @@ public class Properties
     public float mag; // Magnitude
     public string place; // Location description
     public long time; // Time in Unix epoch (milliseconds)
-    public string alert; //“green”, “yellow”, “orange”, “red”.
 }
 
 // Earthquake location data

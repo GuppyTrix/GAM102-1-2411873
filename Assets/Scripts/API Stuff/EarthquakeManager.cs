@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -7,19 +8,16 @@ public class EarthquakeManager : MonoBehaviour
     public GameObject earthquakeMarkerPrefab;  // Reference to your marker prefab
     public GameObject globe;  // Reference to your globe (the sphere in your scene)
 
-    private float globeRadius;
 
     void Start()
     {
-        //globeRadius = globe.transform.localScale.x; 
-        globeRadius = 1;
-        StartCoroutine(EarthquakeDataFetcher.Instance.FetchEarthquakeData());
+        //StartCoroutine(EarthquakeDataFetcher.Instance.FetchEarthquakeData());
         //PlaceEarthquakeMarker(-30.5092f, -72.0447f);
         //PlaceEarthquakeMarker(38.83767f, -122.7813f);
         //PlaceEarthquakeMarker(19.39083f, -155.28f);
     }
 
-    public void PlaceEarthquakeMarker(float latitude, float longitude, string alert)
+    public void PlaceEarthquakeMarker(float latitude, float longitude, string color)
     {
         Vector3 globePosition = LatitudeLongitudeTo3DPosition(latitude, longitude);
 
@@ -29,32 +27,25 @@ public class EarthquakeManager : MonoBehaviour
 
                 // maybe change color based on magnitude
         Renderer renderer = marker.GetComponent<MeshRenderer>();
-        if (renderer != null)
-        {
-            renderer.material.color = GetMarkerColor(alert);
-            Debug.Log($"setting the color of the marker to: {alert}");
-        }
-        else
-        {
-            Debug.LogError("renderer not found");
-        }
+        renderer.material.color = GetMarkerColor(color);
+
     }
 
-    private Color GetMarkerColor(string alert)
+    private UnityEngine.Color GetMarkerColor(string color)
     {
         //“green”, “yellow”, “orange”, “red”.
-        switch (alert.ToLower())
+        switch (color)
         {
             case "green":
-                return Color.green;
+                return UnityEngine.Color.green;
             case "yellow":
-                return Color.yellow;
+                return UnityEngine.Color.yellow;
             case "orange":
-                return new Color(1.0f, 0.5f, 0.0f); 
+                return new UnityEngine.Color(1.0f, 0.5f, 0.0f); 
             case "red":
-                return Color.red;
+                return UnityEngine.Color.red;
             default:
-                return Color.white;
+                return UnityEngine.Color.white;
         }
 
     }
@@ -69,9 +60,9 @@ public class EarthquakeManager : MonoBehaviour
         float lonRad = Mathf.Deg2Rad * longitude;
 
          //Spherical to Cartesian conversion
-        float z = globeRadius * Mathf.Cos(latRad) * Mathf.Sin(lonRad);
-        float y = globeRadius * Mathf.Sin(latRad);
-        float x = globeRadius * Mathf.Cos(latRad) * Mathf.Cos(lonRad);
+        float z = 1 * Mathf.Cos(latRad) * Mathf.Sin(lonRad);
+        float y = 1 * Mathf.Sin(latRad);
+        float x = 1 * Mathf.Cos(latRad) * Mathf.Cos(lonRad);
 
         // Return as a Vector3 position
         return new Vector3(x, y, z);
