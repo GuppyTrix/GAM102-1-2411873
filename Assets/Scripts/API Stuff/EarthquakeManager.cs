@@ -17,14 +17,7 @@ public class EarthquakeManager : MonoBehaviour
         //PlaceEarthquakeMarker(19.39083f, -155.28f);
     }
 
-    public void DestroyMarkers()
-    {
-        foreach (Transform child in globe.transform)
-        {
-            // Destroy the child GameObject
-            Destroy(child.gameObject);
-        }
-    }
+
 
     public void PlaceEarthquakeMarker(float latitude, float longitude, string color)
     {

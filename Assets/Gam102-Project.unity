@@ -1197,6 +1197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a991cbda75fbdb942bfe950532eef422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  globe: {fileID: 290466190}
   uiPanel: {fileID: 945616317}
   inputFieldsParent: {fileID: 1626557979}
 --- !u!1 &223021479
