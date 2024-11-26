@@ -3,6 +3,10 @@
 ## License
 [License.md](License.md)
 
+The MIT License is a simple, permissive, and widely recognized choice for software projects. It allows use in both open-source and proprietary applications, fostering collaboration and encouraging contributions. Its clear terms provide liability protection by disclaiming warranties, while ensuring proper attribution to the original creator. As an industry-standard license, it maximizes adoption and impact, making it an excellent option for developers seeking to share their work openly.
+
+
+
 This repository has been pre-configured with a .gitignore and .gitattributes file specific to Unity projects using git-lfs. 
 
 This project was created for Unity [2023.2.20](https://unity.com/releases/editor/whats-new/2023.2.20#installs)
