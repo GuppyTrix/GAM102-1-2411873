@@ -22,7 +22,7 @@ public class InputValidator : MonoBehaviour
 
         inputField = GetComponent<TMP_InputField>();
         if (inputField != null)
-            Debug.Log("adding listener");
+            //Debug.Log("adding listener");
             inputField.onEndEdit.AddListener(OnEndEditValidateInput);
             inputField.onValueChanged.AddListener(OnValueChangedValidateInput);
     }
@@ -37,7 +37,7 @@ public class InputValidator : MonoBehaviour
         input = inputField.text;
         if (validateFunc != null && !validateFunc(input))
         {
-            Debug.LogWarning($"Invalid input for {inputField.name}: {input}");
+            //Debug.LogWarning($"Invalid input for {inputField.name}: {input}");
             inputField.text = null; // Reset to a default value
         }
     }

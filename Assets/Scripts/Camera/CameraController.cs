@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public static CameraController Instance;
+
     public Transform playerTransform; // Assign the player GameObject here
     public float mouseSensitivity = 100f;
     public float verticalClampAngle = 80f;
@@ -11,6 +14,21 @@ public class CameraController : MonoBehaviour
     public float cameraHeight = 2f;
 
     private float verticalRotation = 0f;
+
+    private bool cameraCanMove = true;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+    }
 
     private void Start()
     {
@@ -25,8 +43,18 @@ public class CameraController : MonoBehaviour
         FollowPlayer();
     }
 
+    public void ToggleCameraMove()
+    {
+        cameraCanMove = !cameraCanMove;
+    }
+
     private void HandleCameraRotation()
     {
+        if (!cameraCanMove)
+        {
+            return;
+        }
+
         // Get mouse input
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;

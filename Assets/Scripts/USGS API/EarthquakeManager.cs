@@ -5,13 +5,10 @@ using UnityEngine.UIElements;
 
 public class EarthquakeManager : MonoBehaviour
 {
-    public GameObject earthquakeMarkerPrefab;  // Reference to your marker prefab
-    public GameObject globe;  // Reference to your globe (the sphere in your scene)
+    public GameObject earthquakeMarkerPrefab; 
+    public GameObject globe;
     public static EarthquakeManager Instance;
     private EarthquakeDataFetcher earthquakeDataFetcher;
-
-
-
 
     private void Awake()
     {
@@ -26,7 +23,6 @@ public class EarthquakeManager : MonoBehaviour
 
         earthquakeDataFetcher = GetComponent<EarthquakeDataFetcher>();
     }
-
 
     public IEnumerator PlaceEarthquakeMarker(float latitude, float longitude, string color)
     {

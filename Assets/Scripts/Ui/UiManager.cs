@@ -41,6 +41,7 @@ public class UiManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            CameraController.Instance.ToggleCameraMove();
             ToggleUI();
         }
     }
@@ -53,6 +54,19 @@ public class UiManager : MonoBehaviour
             Destroy(child.gameObject);
         }
     
+    }
+
+    public TMP_InputField GetInputFieldByName(string fieldName)
+    {
+        if (inputFields.TryGetValue(fieldName, out TMP_InputField inputField))
+        {
+            return inputField;
+        }
+        else
+        {
+            Debug.LogError($"Input field with name '{fieldName}' not found in the dictionary.");
+            return null; 
+        }
     }
 
     private string GetInputValue(string fieldName)
@@ -71,8 +85,8 @@ public class UiManager : MonoBehaviour
     {
         if (dropdownFields.TryGetValue(fieldName, out TMP_Dropdown dropdown))
         {
-            int selectedIndex = dropdown.value; // Get selected index
-            return dropdown.options[selectedIndex].text.ToLower(); // Get selected option's text
+            int selectedIndex = dropdown.value;
+            return dropdown.options[selectedIndex].text.ToLower();
         }
         else
         {
@@ -90,6 +104,32 @@ public class UiManager : MonoBehaviour
             return result;
         }
         return null;
+    }
+
+    private IEnumerator SetMessage(TMP_InputField inputField, string messsage = "*Required*")
+    {
+        //inputField.interactable = false;
+        inputField.text = messsage;
+        yield return new WaitForSeconds(2f);
+        inputField.text = "";
+        //inputField.interactable = true;
+    }
+
+    private void ToggleUI()
+    {
+        isUIActive = !isUIActive;
+        uiPanel.SetActive(isUIActive);
+
+        if (isUIActive)
+        {
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+            UnityEngine.Cursor.visible = true;
+        }
+        else
+        {
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+            UnityEngine.Cursor.visible = false;
+        }
     }
 
     public void FetchDataRegularSearch()
@@ -132,6 +172,16 @@ public class UiManager : MonoBehaviour
 
     public void FetchDataCircleSearch()
     {
+        if (
+            !((GetInputIntValue("latitude").HasValue && GetInputIntValue("longitude").HasValue)
+            &&(GetInputIntValue("maxradius").HasValue ^ GetInputIntValue("maxradiuskm").HasValue))
+            )
+        {
+            Debug.LogError("Missing Reuired Fields");
+            return;
+        }
+
+
         EarthquakeDataFetcher.Instance.SetParameters(
             GetInputValue("endtime"),
             GetInputValue("starttime"),
@@ -150,23 +200,34 @@ public class UiManager : MonoBehaviour
 
         StartCoroutine(EarthquakeDataFetcher.Instance.FetchEarthquakeData(GetDropdownValue("color")));
     }
-
-    private void ToggleUI()
+    public void FetchDataCircleandRectSearch()
     {
-        isUIActive = !isUIActive;
-        uiPanel.SetActive(isUIActive);
+        if (!((GetInputIntValue("latitude").HasValue && GetInputIntValue("longitude").HasValue)
+            &&(GetInputIntValue("maxradius").HasValue ^ GetInputIntValue("maxradiuskm").HasValue)))
+        {
+            Debug.LogError("Missing Reuired Fields");
+            return;
+        }
+        EarthquakeDataFetcher.Instance.SetParameters(
+            GetInputValue("endtime"),
+            GetInputValue("starttime"),
+            GetInputValue("updatedafter"),
+            GetDropdownValue("orderby"),
+            GetInputIntValue("limit"),
+            GetInputIntValue("maxdepth"),
+            GetInputIntValue("mindepth"),
+            GetInputIntValue("maxmagnitude"),
+            GetInputIntValue("minmagnitude"),
+            GetInputIntValue("minlatitude"),
+            GetInputIntValue("maxlatitude"),
+            GetInputIntValue("minlongitude"),
+            GetInputIntValue("maxlongitude"),
+            GetInputIntValue("latitude"),
+            GetInputIntValue("longitude"),
+            GetInputIntValue("maxradius"),
+            GetInputIntValue("maxradiuskm")
+        );
 
-        if (isUIActive)
-        {
-            // Unlock cursor and make it visible
-            UnityEngine.Cursor.lockState = CursorLockMode.None;
-            UnityEngine.Cursor.visible = true;
-        }
-        else
-        {
-            // Lock cursor back to the game screen
-            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-            UnityEngine.Cursor.visible = false;
-        }
+        StartCoroutine(EarthquakeDataFetcher.Instance.FetchEarthquakeData(GetDropdownValue("color")));
     }
 }
