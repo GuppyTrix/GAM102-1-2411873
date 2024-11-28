@@ -47,6 +47,10 @@ public class CameraController : MonoBehaviour
     {
         cameraCanMove = !cameraCanMove;
     }
+    public void SetCameraMove(bool state)
+    {
+        cameraCanMove = state;
+    }
 
     private void HandleCameraRotation()
     {

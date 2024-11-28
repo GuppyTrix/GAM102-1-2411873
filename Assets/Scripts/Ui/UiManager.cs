@@ -7,9 +7,12 @@ using TMPro;
 
 public class UiManager : MonoBehaviour
 {
-    private bool isUIActive = false;
+    //private bool isUIActive = false;
 
-    public GameObject globe;   
+    public GameObject globe;
+
+    public Canvas ESCMenu;
+    public Canvas APIMenu;
 
     public GameObject uiPanel;
     public Transform inputFieldsParent;
@@ -31,18 +34,50 @@ public class UiManager : MonoBehaviour
 
     private void Start()
     {
-        // Make sure the UI panel is hidden at the start
-        uiPanel.SetActive(false);
+        SetCanvasState(ESCMenu, true);
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
+        CameraController.Instance.SetCameraMove(false);
+        SetCanvasState(APIMenu, false);
+    }
+
+    public void leaveESCMenu()
+    {
+        SetCanvasState(ESCMenu, false);
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
+        CameraController.Instance.SetCameraMove(true);
     }
+
+    public void doExitGame()
+    {
+        Application.Quit();
+    }
+
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (ESCMenu.isActiveAndEnabled)
+            {
+                CameraController.Instance.SetCameraMove(true);
+                UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+                SetCanvasState(APIMenu, false);
+                ToggleCanvas(ESCMenu);
+            }
+            else
+            {
+                CameraController.Instance.SetCameraMove(false);
+                UnityEngine.Cursor.lockState = CursorLockMode.None;
+                SetCanvasState(APIMenu, false);
+                ToggleCanvas(ESCMenu);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && !ESCMenu.isActiveAndEnabled)
+        {
             CameraController.Instance.ToggleCameraMove();
-            ToggleUI();
+            ToggleCanvas(APIMenu);
         }
     }
 
@@ -95,7 +130,6 @@ public class UiManager : MonoBehaviour
         }
     }
 
-
     private int? GetInputIntValue(string fieldName)
     {
         string value = GetInputValue(fieldName);
@@ -108,19 +142,32 @@ public class UiManager : MonoBehaviour
 
     private IEnumerator SetMessage(TMP_InputField inputField, string messsage = "*Required*")
     {
-        //inputField.interactable = false;
         inputField.text = messsage;
         yield return new WaitForSeconds(2f);
         inputField.text = "";
-        //inputField.interactable = true;
     }
 
-    private void ToggleUI()
+    private void ToggleCanvas(Canvas canvas)
     {
-        isUIActive = !isUIActive;
-        uiPanel.SetActive(isUIActive);
+        canvas.enabled = !canvas.enabled;   
 
-        if (isUIActive)
+        if (canvas.enabled)
+        {
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+            UnityEngine.Cursor.visible = true;
+        }
+        else
+        {
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+            UnityEngine.Cursor.visible = false;
+        }
+    }
+
+    private void SetCanvasState(Canvas canvas, bool state)
+    {
+        canvas.enabled = state;
+
+        if (canvas.enabled)
         {
             UnityEngine.Cursor.lockState = CursorLockMode.None;
             UnityEngine.Cursor.visible = true;
