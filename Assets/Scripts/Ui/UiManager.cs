@@ -9,7 +9,7 @@ public class UiManager : MonoBehaviour
 {
     private bool isUIActive = false;
 
-    public GameObject globe;
+    public GameObject globe;   
 
     public GameObject uiPanel;
     public Transform inputFieldsParent;
