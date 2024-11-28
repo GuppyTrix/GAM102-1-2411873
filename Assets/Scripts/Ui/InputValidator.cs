@@ -15,6 +15,11 @@ public class InputValidator : MonoBehaviour
 
     private void Awake()
     {
+        if (validationRule.Length <= 0)
+        {
+            Debug.LogError($"Unset validationRule for {this.name}");
+        }
+
         inputField = GetComponent<TMP_InputField>();
         if (inputField != null)
             Debug.Log("adding listener");
@@ -24,7 +29,6 @@ public class InputValidator : MonoBehaviour
 
     public string GetValidationRule()
     {
-        //may cause problems if the first child of the object is not named correctly
         return validationRule;
     }
 
