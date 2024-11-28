@@ -129,13 +129,14 @@ public class EarthquakeDataFetcher : MonoBehaviour
                     // Convert Unix time to DateTime (in UTC i think)
                     System.DateTime dateTime = UnixTimeStampToDateTime(time);
 
-                    Debug.Log($"Earthquake Details: \n" +
-                              $"  Place: {place}\n" +
-                              $"  Latitude: {latitude}, Longitude: {longitude}, Depth: {depth} km\n" +
-                              $"  Magnitude: {magnitude}\n" +
-                              $"  Time: {dateTime}");
+                    //Debug.Log($"Earthquake Details: \n" +
+                    //          $"  Place: {place}\n" +
+                    //          $"  Latitude: {latitude}, Longitude: {longitude}, Depth: {depth} km\n" +
+                    //          $"  Magnitude: {magnitude}\n" +
+                    //          $"  Time: {dateTime}");
 
-                    earthquakeManager.PlaceEarthquakeMarker(latitude, longitude, color);
+
+                    StartCoroutine(EarthquakeManager.Instance.PlaceEarthquakeMarker(latitude, longitude, color));
                 }
             }
         }
@@ -158,6 +159,7 @@ public class EarthquakeDataFetcher : MonoBehaviour
         string endtime,
         string starttime,
         string updatedafter,
+        string orderby = null,
         int? limit = null,
         int? maxdepth = null,
         int? mindepth = null,
@@ -176,6 +178,7 @@ public class EarthquakeDataFetcher : MonoBehaviour
         this.starttime = starttime;
         this.updatedafter = updatedafter;
 
+        this.orderby = orderby ?? this.orderby;
         this.limit = limit ?? this.limit;
         this.maxdepth = maxdepth ?? this.maxdepth;
         this.mindepth = mindepth ?? this.mindepth;

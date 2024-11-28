@@ -14,12 +14,18 @@ public class UiManager : MonoBehaviour
     public GameObject uiPanel;
     public Transform inputFieldsParent;
     private Dictionary<string, TMP_InputField> inputFields = new Dictionary<string, TMP_InputField>();
+    private Dictionary<string, TMP_Dropdown> dropdownFields = new Dictionary<string, TMP_Dropdown>();
 
     private void Awake()
     {
         foreach (var inputField in inputFieldsParent.GetComponentsInChildren<TMP_InputField>())
         {
             inputFields[inputField.name] = inputField;
+        }
+
+        foreach (var dropdown in inputFieldsParent.GetComponentsInChildren<TMP_Dropdown>())
+        {
+            dropdownFields[dropdown.name] = dropdown;
         }
     }
 
@@ -61,6 +67,20 @@ public class UiManager : MonoBehaviour
             return null;
         }
     }
+    private string GetDropdownValue(string fieldName)
+    {
+        if (dropdownFields.TryGetValue(fieldName, out TMP_Dropdown dropdown))
+        {
+            int selectedIndex = dropdown.value; // Get selected index
+            return dropdown.options[selectedIndex].text.ToLower(); // Get selected option's text
+        }
+        else
+        {
+            Debug.LogError($"Dropdown field with name '{fieldName}' not found!");
+            return null;
+        }
+    }
+
 
     private int? GetInputIntValue(string fieldName)
     {
@@ -78,6 +98,7 @@ public class UiManager : MonoBehaviour
             GetInputValue("endtime"),
             GetInputValue("starttime"),
             GetInputValue("updatedafter"),
+            GetDropdownValue("orderby"),
             GetInputIntValue("limit"),
             GetInputIntValue("maxdepth"),
             GetInputIntValue("mindepth"),
@@ -85,7 +106,7 @@ public class UiManager : MonoBehaviour
             GetInputIntValue("minmagnitude")
         );
 
-        StartCoroutine(EarthquakeDataFetcher.Instance.FetchEarthquakeData(GetInputValue("color")));
+        StartCoroutine(EarthquakeDataFetcher.Instance.FetchEarthquakeData(GetDropdownValue("color")));
     }
 
     public void FetchDataRectSearch()
@@ -94,6 +115,7 @@ public class UiManager : MonoBehaviour
             GetInputValue("endtime"),
             GetInputValue("starttime"),
             GetInputValue("updatedafter"),
+            GetDropdownValue("orderby"),
             GetInputIntValue("limit"),
             GetInputIntValue("maxdepth"),
             GetInputIntValue("mindepth"),
@@ -105,7 +127,7 @@ public class UiManager : MonoBehaviour
             GetInputIntValue("maxlongitude")
         );
 
-        StartCoroutine(EarthquakeDataFetcher.Instance.FetchEarthquakeData(GetInputValue("color")));
+        StartCoroutine(EarthquakeDataFetcher.Instance.FetchEarthquakeData(GetDropdownValue("color")));
     }
 
     public void FetchDataCircleSearch()
@@ -113,6 +135,7 @@ public class UiManager : MonoBehaviour
         EarthquakeDataFetcher.Instance.SetParameters(
             GetInputValue("endtime"),
             GetInputValue("starttime"),
+            GetDropdownValue("orderby"),
             GetInputValue("updatedafter"),
             GetInputIntValue("limit"),
             GetInputIntValue("maxdepth"),
@@ -125,7 +148,7 @@ public class UiManager : MonoBehaviour
             GetInputIntValue("maxradiuskm")
         );
 
-        StartCoroutine(EarthquakeDataFetcher.Instance.FetchEarthquakeData(GetInputValue("color")));
+        StartCoroutine(EarthquakeDataFetcher.Instance.FetchEarthquakeData(GetDropdownValue("color")));
     }
 
     private void ToggleUI()

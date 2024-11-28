@@ -7,19 +7,28 @@ public class EarthquakeManager : MonoBehaviour
 {
     public GameObject earthquakeMarkerPrefab;  // Reference to your marker prefab
     public GameObject globe;  // Reference to your globe (the sphere in your scene)
+    public static EarthquakeManager Instance;
+    private EarthquakeDataFetcher earthquakeDataFetcher;
 
 
-    void Start()
+
+
+    private void Awake()
     {
-        //StartCoroutine(EarthquakeDataFetcher.Instance.FetchEarthquakeData());
-        //PlaceEarthquakeMarker(-30.5092f, -72.0447f);
-        //PlaceEarthquakeMarker(38.83767f, -122.7813f);
-        //PlaceEarthquakeMarker(19.39083f, -155.28f);
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        earthquakeDataFetcher = GetComponent<EarthquakeDataFetcher>();
     }
 
 
-
-    public void PlaceEarthquakeMarker(float latitude, float longitude, string color)
+    public IEnumerator PlaceEarthquakeMarker(float latitude, float longitude, string color)
     {
         Vector3 globePosition = LatitudeLongitudeTo3DPosition(latitude, longitude);
 
@@ -30,13 +39,17 @@ public class EarthquakeManager : MonoBehaviour
                 // maybe change color based on magnitude
         Renderer renderer = marker.GetComponent<MeshRenderer>();
         renderer.material.color = GetMarkerColor(color);
+        
+        yield return null;
 
     }
 
     private UnityEngine.Color GetMarkerColor(string color)
     {
+        Debug.Log(color);
+
         //“green”, “yellow”, “orange”, “red”.
-        switch (color)
+        switch (color.ToLower())
         {
             case "green":
                 return UnityEngine.Color.green;
