@@ -23,9 +23,9 @@ In this project i have the following features:
 
 
 imported assets from the unity store:
-  Shaders I used or the Earth: [Customizable Planet Shaders](https://assetstore.unity.com/packages/vfx/shaders/customizable-planet-shaders-131872)
-  [Planet Earth Free](https://assetstore.unity.com/packages/3d/environments/sci-fi/planet-earth-free-23399)
-  Earth and sun texture i used [Planets of the Solar System 3D](https://assetstore.unity.com/packages/3d/environments/planets-of-the-solar-system-3d-90219)
-  all animations and player models from [Mixamo](https://www.mixamo.com)
+- Shaders I used or the Earth: [Customizable Planet Shaders](https://assetstore.unity.com/packages/vfx/shaders/customizable-planet-shaders-131872)
+- [Planet Earth Free](https://assetstore.unity.com/packages/3d/environments/sci-fi/planet-earth-free-23399)
+- Earth and sun texture i used [Planets of the Solar System 3D](https://assetstore.unity.com/packages/3d/environments/planets-of-the-solar-system-3d-90219)
+- all animations and player models from [Mixamo](https://www.mixamo.com)
 
 
