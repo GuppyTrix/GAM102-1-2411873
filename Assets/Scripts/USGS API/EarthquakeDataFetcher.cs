@@ -137,6 +137,7 @@ public class EarthquakeDataFetcher : MonoBehaviour
 
 
                     StartCoroutine(EarthquakeManager.Instance.PlaceEarthquakeMarker(latitude, longitude, color));
+                    SetParameters();
                 }
             }
         }
@@ -156,9 +157,9 @@ public class EarthquakeDataFetcher : MonoBehaviour
     }
 
     public void SetParameters(
-        string endtime,
-        string starttime,
-        string updatedafter,
+        string endtime = null,
+        string starttime = null,
+        string updatedafter = null,
         string orderby = null,
         int? limit = null,
         int? maxdepth = null,
@@ -180,18 +181,18 @@ public class EarthquakeDataFetcher : MonoBehaviour
 
         this.orderby = orderby ?? this.orderby;
         this.limit = limit ?? this.limit;
-        this.maxdepth = maxdepth ?? this.maxdepth;
-        this.mindepth = mindepth ?? this.mindepth;
-        this.maxmagnitude = maxmagnitude ?? this.maxmagnitude;
-        this.minmagnitude = minmagnitude ?? this.minmagnitude;
-        this.minlatitude = minlatitude ?? this.minlatitude;
-        this.maxlatitude = maxlatitude ?? this.maxlatitude;
-        this.minlongitude = minlongitude ?? this.minlongitude;
-        this.maxlongitude = maxlongitude ?? this.maxlongitude;
-        this.latitude = latitude ?? this.latitude;
-        this.longitude = longitude ?? this.longitude;
-        this.maxradius = maxradius ?? this.maxradius;
-        this.maxradiuskm = maxradiuskm ?? this.maxradiuskm;
+        this.maxdepth = maxdepth;
+        this.mindepth = mindepth;
+        this.maxmagnitude = maxmagnitude;
+        this.minmagnitude = minmagnitude;
+        this.minlatitude = minlatitude;
+        this.maxlatitude = maxlatitude;
+        this.minlongitude = minlongitude;
+        this.maxlongitude = maxlongitude;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.maxradius = maxradius;
+        this.maxradiuskm = maxradiuskm;
     }
 }
 

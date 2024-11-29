@@ -10719,7 +10719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1004154018
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19669,7 +19669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 264355115}
-  mouseSensitivity: 800
+  mouseSensitivity: 200
   verticalClampAngle: 80
   cameraDistance: -0.17
   cameraHeight: 1.65

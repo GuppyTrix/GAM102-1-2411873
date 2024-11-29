@@ -232,8 +232,8 @@ public class UiManager : MonoBehaviour
         EarthquakeDataFetcher.Instance.SetParameters(
             GetInputValue("endtime"),
             GetInputValue("starttime"),
-            GetDropdownValue("orderby"),
             GetInputValue("updatedafter"),
+            GetDropdownValue("orderby"),
             GetInputIntValue("limit"),
             GetInputIntValue("maxdepth"),
             GetInputIntValue("mindepth"),
