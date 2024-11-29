@@ -37,7 +37,7 @@ public class CameraController : MonoBehaviour
         Cursor.visible = false;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         HandleCameraRotation();
         FollowPlayer();
@@ -60,8 +60,8 @@ public class CameraController : MonoBehaviour
         }
 
         // Get mouse input
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
         // Rotate the player horizontally
         playerTransform.Rotate(Vector3.up * mouseX);
