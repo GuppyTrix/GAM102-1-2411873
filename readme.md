@@ -7,15 +7,25 @@ The MIT License is a simple, permissive, and widely recognized choice for softwa
 
 This project was created for Unity [2023.2.20](https://unity.com/releases/editor/whats-new/2023.2.20#installs)
 
+This project aims to take the earthquake data from [USGS](https://www.usgs.gov/programs/earthquake-hazards) and represent it on a sphere model of the earth.
+In this project i have the following features:
+   1.Built a custom materal to use a shader to show esimations of the area where the Rect and Circle Search will show data
+   2.Collect data from an [API](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson_detail.php)
+   3.Convert the lat long coords into x,y,z on a sphere
+   4.Api Menu to dynamicly request data and display it on the Earth
+   5.Use of the animator for the moons orbit
+   6.Use of free assets to build my scene
+   7.Debug tools: Press P to light up the scene
+   8.Animations for the player
+   9.Start Menu
+  10.Main Menu
+
+
 
 imported assets from the unity store:
-
-Shaders I used or the Earth: [Customizable Planet Shaders](https://assetstore.unity.com/packages/vfx/shaders/customizable-planet-shaders-131872)
-
-[Planet Earth Free](https://assetstore.unity.com/packages/3d/environments/sci-fi/planet-earth-free-23399)
-
-Earth and sun texture i used [Planets of the Solar System 3D](https://assetstore.unity.com/packages/3d/environments/planets-of-the-solar-system-3d-90219)
-
-all animations and player models from [Mixamo](https://www.mixamo.com)
+  Shaders I used or the Earth: [Customizable Planet Shaders](https://assetstore.unity.com/packages/vfx/shaders/customizable-planet-shaders-131872)
+  [Planet Earth Free](https://assetstore.unity.com/packages/3d/environments/sci-fi/planet-earth-free-23399)
+  Earth and sun texture i used [Planets of the Solar System 3D](https://assetstore.unity.com/packages/3d/environments/planets-of-the-solar-system-3d-90219)
+  all animations and player models from [Mixamo](https://www.mixamo.com)
 
 
