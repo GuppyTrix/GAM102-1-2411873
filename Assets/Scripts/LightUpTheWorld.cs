@@ -9,7 +9,10 @@ public class LightUpTheWorld : MonoBehaviour
 
     private void Awake()
     {
+        // Disable the debug light
         this.gameObject.GetComponent<Light>().enabled = false;
+
+        // Disable all the mesh renderers for the floor and walls
         foreach (MeshRenderer item in environmentParent.GetComponentsInChildren<MeshRenderer>())
         {
             item.enabled = false;
@@ -20,8 +23,11 @@ public class LightUpTheWorld : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("doing smth");
+
+            // Enable the debug light
             this.gameObject.GetComponent<Light>().enabled = !this.gameObject.GetComponent<Light>().isActiveAndEnabled;
+
+            // Enable all the mesh renderers for the floor and walls
             foreach (MeshRenderer item in environmentParent.GetComponentsInChildren<MeshRenderer>())
             {
                 item.enabled = !item.enabled;

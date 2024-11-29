@@ -53,6 +53,7 @@ public class EarthquakeDataFetcher : MonoBehaviour
 
     private void Awake()
     {
+        //Intsntising this script as i only want one ever in a scene
         if (Instance == null)
         {
             Instance = this;
@@ -74,6 +75,8 @@ public class EarthquakeDataFetcher : MonoBehaviour
 
         var queryParams = new List<string>();
 
+
+        //adding all of the api params that are not null
         if (!string.IsNullOrEmpty(endtime)) queryParams.Add($"endtime={endtime}");
         if (!string.IsNullOrEmpty(starttime)) queryParams.Add($"starttime={starttime}");
         if (!string.IsNullOrEmpty(updatedafter)) queryParams.Add($"updatedafter={updatedafter}");
@@ -105,20 +108,25 @@ public class EarthquakeDataFetcher : MonoBehaviour
         {
             yield return request.SendWebRequest();
 
+            //Checking if the web request failed
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
                 Debug.LogError("Error fetching earthquake data: " + request.error);
             }
             else
             {
+                //storing the downloaded text
                 string jsonResponse = request.downloadHandler.text; 
                 Debug.Log("Earthquake Data Fetched: " + jsonResponse);
 
                 // Parse JSON using JsonUtility
                 data = JsonUtility.FromJson<EarthquakeData>(jsonResponse);
 
+                //loop through each Earthquake
                 foreach (Feature feature in data.features)
                 {
+
+                    //data needed from the earthquake api to make a marker and debug
                     float longitude = feature.geometry.coordinates[0];
                     float latitude = feature.geometry.coordinates[1];
                     float magnitude = feature.properties.mag;
@@ -126,17 +134,13 @@ public class EarthquakeDataFetcher : MonoBehaviour
                     long time = feature.properties.time; // Unix timestamp in milliseconds
                     float depth = feature.geometry.coordinates[2];
 
-                    // Convert Unix time to DateTime (in UTC i think)
+                    // Convert Unix time to DateTime in UTC
                     System.DateTime dateTime = UnixTimeStampToDateTime(time);
 
-                    //Debug.Log($"Earthquake Details: \n" +
-                    //          $"  Place: {place}\n" +
-                    //          $"  Latitude: {latitude}, Longitude: {longitude}, Depth: {depth} km\n" +
-                    //          $"  Magnitude: {magnitude}\n" +
-                    //          $"  Time: {dateTime}");
-
-
+                    //Creating the marker for the Earthquake
                     StartCoroutine(EarthquakeManager.Instance.PlaceEarthquakeMarker(latitude, longitude, color));
+
+                    //SetParameters params to null to reset the search on the next call
                     SetParameters();
                 }
             }
@@ -156,6 +160,8 @@ public class EarthquakeDataFetcher : MonoBehaviour
         return dateTime;
     }
 
+
+    //Sets all of the data that the Api needs if they are not null except limit and orderby
     public void SetParameters(
         string endtime = null,
         string starttime = null,

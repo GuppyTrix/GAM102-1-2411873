@@ -26,19 +26,23 @@ public class EarthquakeManager : MonoBehaviour
 
     public IEnumerator PlaceEarthquakeMarker(float latitude, float longitude, string color)
     {
+        // Convert latitude and longitude to a 3D position on the globe.
         Vector3 globePosition = LatitudeLongitudeTo3DPosition(latitude, longitude);
 
+        // Compute the marker's world position relative to the globe.
         Vector3 markerPosition = globe.transform.position + globePosition;
 
+        // Instantiate the marker prefab at the calculated position, parented to the globe.
         GameObject marker = Instantiate(earthquakeMarkerPrefab, markerPosition, Quaternion.identity, globe.transform);
 
-                // maybe change color based on magnitude
+        // Set the marker's color using the specified string.
         Renderer renderer = marker.GetComponent<MeshRenderer>();
         renderer.material.color = GetMarkerColor(color);
-        
-        yield return null;
 
+        // Wait for one frame (placeholder for potential future logic).
+        yield return null;
     }
+
 
     private UnityEngine.Color GetMarkerColor(string color)
     {
