@@ -34,11 +34,11 @@ public class UiManager : MonoBehaviour
 
     private void Start()
     {
-        SetCanvasState(ESCMenu, true);
-        UnityEngine.Cursor.lockState = CursorLockMode.None;
-        UnityEngine.Cursor.visible = true;
-        CameraController.Instance.SetCameraMove(false);
+        SetCanvasState(ESCMenu, false);
         SetCanvasState(APIMenu, false);
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
+        CameraController.Instance.SetCameraMove(true);
     }
 
     public void leaveESCMenu()
