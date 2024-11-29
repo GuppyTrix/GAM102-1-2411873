@@ -10,17 +10,32 @@ This project was created for Unity [2023.2.20](https://unity.com/releases/editor
 This project takes the earthquake data from [USGS](https://www.usgs.gov/programs/earthquake-hazards) and represent it on a sphere model of the earth.
 In this project i have the following features:
 - Built a custom materal to use a shader to show estimations of the area where the Rect and Circle Search will show data
+![image](https://github.falmouth.ac.uk/GA-Undergrad-Student-Work-24-25/GAM102-1-2411873/assets/2826/48db5bfa-e969-46b3-b0bb-e5bb13ddd9fb)
+
+
+  
 - Collect data from an [API](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson_detail.php)
 - Convert the lat long coords into x,y,z on a sphere
 - Api Menu to dynamicly request data and display it on the Earth
+![image](https://github.falmouth.ac.uk/GA-Undergrad-Student-Work-24-25/GAM102-1-2411873/assets/2826/cdb29fac-9a2a-4545-8d3a-fc86e464cca4)
+
 - Use of the animator for the moons orbit
+![image](https://github.falmouth.ac.uk/GA-Undergrad-Student-Work-24-25/GAM102-1-2411873/assets/2826/97d3efc6-ed41-481e-930a-a5fb6368d9df)
+![image](https://github.falmouth.ac.uk/GA-Undergrad-Student-Work-24-25/GAM102-1-2411873/assets/2826/d622cf53-f9cb-467a-a044-dd646a6e220f)
+
+
 - Use of free assets to build my scene
 - Debug tools: Press P to light up the scene
+![image](https://github.falmouth.ac.uk/GA-Undergrad-Student-Work-24-25/GAM102-1-2411873/assets/2826/732ec247-cbf6-4638-a1ed-f44cc6c0c525)
+
 - Animations for the player
+  
 - Start Menu
   ![image](https://github.falmouth.ac.uk/GA-Undergrad-Student-Work-24-25/GAM102-1-2411873/assets/2826/5e17fba4-ad5e-407d-8064-f4c8f6774a16)
 
 - Main Menu
+- ![image](https://github.falmouth.ac.uk/GA-Undergrad-Student-Work-24-25/GAM102-1-2411873/assets/2826/7dddf085-e748-4e1c-baf8-ecf4fd65c31c)
+
 
 
 
