@@ -18,6 +18,8 @@ In this project i have the following features:
 - Debug tools: Press P to light up the scene
 - Animations for the player
 - Start Menu
+  ![image](https://github.falmouth.ac.uk/GA-Undergrad-Student-Work-24-25/GAM102-1-2411873/assets/2826/5e17fba4-ad5e-407d-8064-f4c8f6774a16)
+
 - Main Menu
 
 
