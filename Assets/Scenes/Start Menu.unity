@@ -454,84 +454,6 @@ Transform:
   - {fileID: 1450642743}
   m_Father: {fileID: 798321532}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &203439712
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 203439714}
-  - component: {fileID: 203439713}
-  - component: {fileID: 203439715}
-  - component: {fileID: 203439716}
-  m_Layer: 0
-  m_Name: EarthquakeManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &203439713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203439712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ffbc1f0f7302eb43986dfca28741adc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  earthquakeMarkerPrefab: {fileID: 8119317584943620912, guid: 2f6b935ca4204b743b9b94f65784e9c7,
-    type: 3}
-  globe: {fileID: 290466190}
---- !u!4 &203439714
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203439712}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.14097439, y: 0.69291145, z: -0.14097439, w: 0.69291145}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 459569111}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &203439715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203439712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7f9d65d01f216d4e91672b374fd8fff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &203439716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203439712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a991cbda75fbdb942bfe950532eef422, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  globe: {fileID: 290466190}
-  ESCMenu: {fileID: 0}
-  APIMenu: {fileID: 0}
-  uiPanel: {fileID: 0}
-  inputFieldsParent: {fileID: 0}
 --- !u!1 &290466190
 GameObject:
   m_ObjectHideFlags: 0
@@ -1489,7 +1411,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 203439714}
   - {fileID: 290466191}
   m_Father: {fileID: 1964295986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
