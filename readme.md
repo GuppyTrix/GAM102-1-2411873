@@ -9,16 +9,16 @@ This project was created for Unity [2023.2.20](https://unity.com/releases/editor
 
 This project aims to take the earthquake data from [USGS](https://www.usgs.gov/programs/earthquake-hazards) and represent it on a sphere model of the earth.
 In this project i have the following features:
-   1.Built a custom materal to use a shader to show esimations of the area where the Rect and Circle Search will show data
-   2.Collect data from an [API](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson_detail.php)
-   3.Convert the lat long coords into x,y,z on a sphere
-   4.Api Menu to dynamicly request data and display it on the Earth
-   5.Use of the animator for the moons orbit
-   6.Use of free assets to build my scene
-   7.Debug tools: Press P to light up the scene
-   8.Animations for the player
-   9.Start Menu
-  10.Main Menu
+- Built a custom materal to use a shader to show esimations of the area where the Rect and Circle Search will show data
+- Collect data from an [API](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson_detail.php)
+- Convert the lat long coords into x,y,z on a sphere
+- Api Menu to dynamicly request data and display it on the Earth
+- Use of the animator for the moons orbit
+- Use of free assets to build my scene
+- Debug tools: Press P to light up the scene
+- Animations for the player
+- Start Menu
+- Main Menu
 
 
 
