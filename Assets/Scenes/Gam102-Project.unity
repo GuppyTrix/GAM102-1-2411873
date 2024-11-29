@@ -19669,7 +19669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 264355115}
-  mouseSensitivity: 200
+  mouseSensitivity: 5
   verticalClampAngle: 80
   cameraDistance: -0.17
   cameraHeight: 1.65

@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 using TMPro;
 
 
-public class UiManager : MonoBehaviour
+public class FieldDataFetcher : MonoBehaviour
 {
     //private bool isUIActive = false;
 
