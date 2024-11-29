@@ -39,6 +39,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        //Make sure the camera is roatating and followinf the player every frame
         HandleCameraRotation();
         FollowPlayer();
     }

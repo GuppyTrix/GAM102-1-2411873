@@ -39,7 +39,7 @@ public class EarthquakeManager : MonoBehaviour
         Renderer renderer = marker.GetComponent<MeshRenderer>();
         renderer.material.color = GetMarkerColor(color);
 
-        // Wait for one frame (placeholder for potential future logic).
+        // Wait for one frame.
         yield return null;
     }
 
