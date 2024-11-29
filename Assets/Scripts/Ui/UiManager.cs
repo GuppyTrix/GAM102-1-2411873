@@ -239,6 +239,7 @@ public class UiManager : MonoBehaviour
             GetInputIntValue("mindepth"),
             GetInputIntValue("maxmagnitude"),
             GetInputIntValue("minmagnitude"),
+            null, null, null, null,
             GetInputIntValue("latitude"),
             GetInputIntValue("longitude"),
             GetInputIntValue("maxradius"),
