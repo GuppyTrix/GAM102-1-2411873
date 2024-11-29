@@ -1,4 +1,4 @@
-### Blank Unity Project ### 
+### USGS Earthquake Data Visualiser ### 
 
 ## License
 [License.md](license.md)
