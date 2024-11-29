@@ -24,11 +24,13 @@ Shader "AHProxy/PlanetShaderHi" {
         _AtmosphereColor ("AtmosphereColor", Color) = (0.4411765,0.6300204,1,1)
         _AtmosphereDensity ("AtmosphereDensity", Range(0, 8)) = 0
         _LightStretch ("LightStretch", Range(0, 0.5)) = 0
+        
     }
     SubShader {
         Tags {
             "RenderType"="Opaque"
         }
+        LOD 200
         Pass {
             Name "FORWARD"
             Tags {
@@ -73,6 +75,8 @@ Shader "AHProxy/PlanetShaderHi" {
             uniform float4 _CityLightColor;
             uniform float _SpecularMapIntensity;
             uniform float _CityLightIntensity;
+           
+            
             struct VertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -96,6 +100,7 @@ Shader "AHProxy/PlanetShaderHi" {
                     float4 ambientOrLightmapUV : TEXCOORD10;
                 #endif
             };
+
             VertexOutput vert (VertexInput v) {
                 VertexOutput o = (VertexOutput)0;
                 o.uv0 = v.texcoord0;

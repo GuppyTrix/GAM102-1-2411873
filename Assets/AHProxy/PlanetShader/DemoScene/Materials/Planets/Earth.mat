@@ -91,9 +91,9 @@ Material:
     - _AtmosphereStrength: 4.88
     - _BumpScale: 5
     - _CityLightIntensity: 1
-    - _CityNightIntensity: 0
-    - _CloudMapSpecularity: 0
-    - _CloudPanSpeed: 0
+    - _CityNightIntensity: -90
+    - _CloudMapSpecularity: -180
+    - _CloudPanSpeed: 0.5
     - _Cutoff: 0.5
     - _DetailMapSpecularity: -0.94
     - _DetailNormalMapScale: 1
@@ -102,10 +102,14 @@ Material:
     - _GlossMapScale: 0.938
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HeightmapIntensity: 2.5
+    - _HeightmapIntensity: 0
     - _LightAtmosphereFX: 0.5
     - _LightStretch: 0.25
+    - _MaxLat: 90
+    - _MaxLon: 180
     - _Metallic: 0
+    - _MinLat: -90
+    - _MinLon: -180
     - _Mode: 0
     - _NormalMapIntensity: 4.56
     - _NormalmapIntensity: 1
@@ -118,15 +122,17 @@ Material:
     - _SpecularMapIntensity: 0.5
     - _Specularity: 0
     - _SrcBlend: 1
+    - _Transparency: 0.5
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
     - _AtmosphereColor: {r: 0.51427335, g: 0.6587051, b: 0.85294116, a: 0}
-    - _CityLightColor: {r: 1, g: 1, b: 1, a: 0}
+    - _CityLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _CloudColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DetailColor: {r: 0.77205884, g: 0.77205884, b: 0.77205884, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HighlightColor: {r: 1, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _TextureColor: {r: 1, g: 1, b: 1, a: 0}
     - _node_1532: {r: 0.5017301, g: 0.8529412, b: 0.5477508, a: 1}
